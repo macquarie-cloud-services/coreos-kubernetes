@@ -17,7 +17,9 @@ NODE_MEMORY_SIZE = 2560
 USER_DATA_PATH = File.expand_path("user-data")
 SSL_TARBALL_PATH = File.expand_path("ssl/controller.tar")
 
-system("sudo ln -sf /usr/local/bin/openssl /opt/vagrant/embedded/bin/openssl") or echo ("Couldn't link openssl, continuing ...")
+### Uncomment on macOS
+#system("sudo ln -sf /usr/local/bin/openssl /opt/vagrant/embedded/bin/openssl") or echo ("Couldn't link openssl, continuing ...")
+
 system("mkdir -p ssl && ./../lib/init-ssl-ca ssl") or abort ("failed generating SSL CA artifacts")
 system("./../lib/init-ssl ssl apiserver controller IP.1=#{NODE_IP},IP.2=#{CLUSTER_IP}") or abort ("failed generating SSL certificate artifacts")
 system("./../lib/init-ssl ssl admin kube-admin") or abort("failed generating admin SSL artifacts")
